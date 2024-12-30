@@ -11,3 +11,8 @@ JWT_SECRET=ElSecreto
 JWT_EXPIRATION=1d
 
 MONGODB_URI=mongodb://localhost:27017/nombreDeLaDB
+
+
+Credenciales de acceso a la cuenta task manager web
+USUARIO admin@coally.com
+PASSWORD holamundo
