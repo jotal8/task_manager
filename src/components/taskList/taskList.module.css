@@ -1,0 +1,15 @@
+.row{
+    text-align: center;
+    padding:10px;
+}
+
+.filter{
+    width:100%;
+    padding:6px;
+    text-align:center;
+    margin-top:10px;
+}
+
+.container-box{
+    margin-top:20px;
+}

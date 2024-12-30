@@ -1,0 +1,20 @@
+.btnAdd{
+    position:relative;
+    width:220px;
+    height:30px;
+    background:#ebebeb;
+    text-align:center;
+    padding:4px;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.btnAdd:hover{
+    font-weight: bold;
+}
+
+.btnContainer{
+    width:100%;
+    text-align: center;
+    margin:10px;
+}

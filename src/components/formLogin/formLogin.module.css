@@ -1,0 +1,42 @@
+.formLogin{
+    position:relative;
+    font-size:30px;
+    height:400px;
+    text-align:center;
+}
+  
+.formLogin p{
+    position:relative;
+    display: block;
+}
+  
+.buttonContainer{
+    position:relative;
+    display: table;
+    padding: 1rem;
+    margin:auto;
+}
+  
+.ingresarBtn{
+    width:200px;
+    height:60px;
+    font-size:30px;
+    cursor: pointer;
+}
+  
+.formFields{
+    font-size: 22px;
+    height:40px;
+    padding:6px;
+    text-align:center;
+}
+
+.responseText{
+    width:300px;
+    height:20px;
+    font-size:14px;
+    margin:auto;
+    margin-top:15px;
+    color:red;
+    text-align:center;
+}
