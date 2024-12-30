@@ -1,10 +1,10 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  width:100%;
+  padding:30px;
+}
+
+.containerApp{
+  width:100%;
 }
 
 .head{
@@ -31,8 +31,4 @@
   left:0px;
   margin-left: auto;
   max-width: 300px;
-}
-
-.containerApp{
-  width:1000px;
 }
