@@ -25,7 +25,7 @@ export default function Content() {
 
   if(stateSession == 1){
       return (
-        <div> 
+        <div className={styles.main}> 
           <div className={styles.head}>
              <div className={styles.description}>
                   {name}

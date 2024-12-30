@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from './formLogin.module.css';
-import { setSession, setName, LOGIN } from '../../services/session';
+import { setSession, LOGIN } from '../../services/session';
 import { useDispatch } from 'react-redux';
 
 /**
@@ -45,13 +45,13 @@ const FormLogin = () => {
   };
 
   return (
-        <form className={styles.formLogin} onSubmit={onSubmit}>
+        <form className={styles['form-login']} onSubmit={onSubmit}>
             <p>
               <input 
                 type="text" 
                 name="email" 
-                className={styles.formFields} 
-                placeholder="Correo" 
+                className={styles['form-login__fields']} 
+                placeholder="Email" 
                 onChange={(e) => setEmail(e.target.value)} 
                 required
                 />
@@ -61,17 +61,17 @@ const FormLogin = () => {
               <input 
                 type="password" 
                 name="password" 
-                className={styles.formFields} 
-                placeholder="Contraseña" 
+                className={styles['form-login__fields']} 
+                placeholder="Password" 
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 />
             </p>
-            <p className={styles.responseText}>
+            <p className={styles['form-login__response-text']}>
               {responseText}
             </p>
-            <div className={styles.buttonContainer}>
-              <button className={styles.ingresarBtn}>Ingresar</button>
+            <div className={styles['form-login__button-container']}>
+              <button className={styles['form-login__btn']}>Login</button>
             </div>
         </form>
   );

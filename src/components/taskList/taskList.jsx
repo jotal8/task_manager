@@ -11,6 +11,7 @@ const TaskList = () => {
   const token = useSelector((state) => state.session.token);
   const [search, setSearch] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   const fetchTasks = async () => {
     try {
@@ -35,10 +36,12 @@ const TaskList = () => {
   }, []);
 
   const filteredTasks = Array.isArray(tasks)
-  ? tasks.filter(task =>
-      task.title.toLowerCase().includes(search.toLowerCase() || '')
-    )
-  : [];
+    ? tasks.filter(task => {
+        const matchesSearch = task.title.toLowerCase().includes(search.toLowerCase());
+        const matchesCompleted = showCompleted ? task.completed : true;
+        return matchesSearch && matchesCompleted;
+      })
+    : [];
 
   const deleteTask = async (_id) => {
     try {
@@ -89,7 +92,7 @@ const TaskList = () => {
   };
 
   return (
-        <div>
+        <div className={styles['main-container']}>
             <BtnAdd tasks={tasks} setTasks={setTasks} />
             <div className={styles['container-box']}>
               <input 
@@ -98,6 +101,14 @@ const TaskList = () => {
                 value={search}
                 onChange={(event) => {setSearch(event.target.value);}}
                 />
+              </div>
+              <div className={styles['checkbox-completed']}>
+                <label>
+                  <input type="checkbox"
+                    checked={showCompleted} 
+                    onChange={(e) => setShowCompleted(e.target.checked)} 
+                  /> Completados
+                </label>
               </div>
               <div className={styles['task-list-container']}>
                 {
