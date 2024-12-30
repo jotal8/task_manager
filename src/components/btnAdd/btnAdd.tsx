@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import styles from '../task/task.module.css';
+
+interface Task {
+  idtask: number;
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+interface BtnAddProps {
+  tasks: Task[];
+  setTasks: Dispatch<React.SetStateAction<Task[]>>;
+}
 
 /**
  * add Task
  */
-const BtnAdd = () => {
+const BtnAdd: React.FC<BtnAddProps> = ({ tasks, setTasks }) => {
 
   const [isAdding, setIsAdding] = useState(false);
   const [taskTitle, setTaskTitle] = useState('');
@@ -31,10 +43,13 @@ const BtnAdd = () => {
       });
 
       if (response.ok) {
-        console.log('Task saved successfully');
         setTaskTitle('');
         setTaskDescription('');
         setIsAdding(false);
+
+        const data = await response.json();
+
+        setTasks(tasks.concat([data.task]));
       } else {
         console.error('Failed to save task:', await response.json());
       }

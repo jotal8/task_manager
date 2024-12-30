@@ -3,26 +3,27 @@ import { authenticateToken } from '../middleware';
 import mongoose from 'mongoose';
 import Task from './../../../../models/Task';
 
-/**
- * @swagger
- * /api/tasks:
- *    get:
- *       description: Get all tasks, requires valid JWT token
- *       responses:
- *         200:
- *           description: Tasks fetched successfully
- *         401:
- *           description: Invalid or missing token
- */
 export async function GET(req: NextRequest) {
   const authError = authenticateToken(req);
   if (authError) return authError;
-  const tasks = [
-    { id: 1, title: 'Task 1', completed: false },
-    { id: 2, title: 'Task 2', completed: true },
-  ];
 
-  return NextResponse.json({ tasks });
+  try {
+    if (!mongoose.connection.readyState) {
+      await mongoose.connect(process.env.MONGODB_URI as string);
+    }
+
+    const tasks = await Task.find({
+      state: 1
+    }).lean();
+
+    return NextResponse.json(tasks, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    return NextResponse.json(
+      { message: 'Failed to fetch tasks', success: 0 },
+      { status: 500 }
+    );
+  }
 }
 
 /**
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!mongoose.connection.readyState) {
-      await mongoose.connect(process.env.MONGO_URI as string);
+      await mongoose.connect(process.env.MONGODB_URI as string);
     }
 
     const task = new Task({
@@ -62,7 +63,7 @@ export async function POST(req: NextRequest) {
     await task.save();
 
     return NextResponse.json(
-      { message: 'Task created successfully!', success: 1},
+      { message: 'Task created successfully!', success: 1, task},
       { status: 200 }
     );
   } catch (error) {
