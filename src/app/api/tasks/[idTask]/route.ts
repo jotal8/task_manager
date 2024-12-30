@@ -7,7 +7,7 @@ import Task from './../../../../../models/Task';
  * @swagger
  * /api/tasks/{idtask}:
  *    put:
- *       description: update completed state, requires valid JWT token
+ *       description: update fields of task, requires valid JWT token
  *       responses:
  *         200:
  *           description: Task saving successfully
@@ -33,18 +33,11 @@ export async function PUT(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { completed } = body;
-
-    if (typeof completed !== 'boolean') {
-      return NextResponse.json(
-        { message: 'Invalid or missing "completed" field', success: 0 },
-        { status: 400 }
-      );
-    }
+    const { field, value } = body;
 
     const task = await Task.findByIdAndUpdate(
       id,
-      { completed }
+      { [field]: value }
     );
 
     if (!task) {
@@ -83,7 +76,7 @@ export async function DELETE(req: NextRequest) {
   const authError = authenticateToken(req);
   if (authError) return authError;
 
-  const id  = req.nextUrl.pathname.split("/").pop() as string;
+  const id = req.nextUrl.pathname.split("/").pop() as string;
 
   if (!id) {
     return NextResponse.json(
@@ -97,10 +90,7 @@ export async function DELETE(req: NextRequest) {
       await mongoose.connect(process.env.MONGODB_URI as string);
     }
 
-    const task = await Task.findByIdAndUpdate(
-      id,
-      { state: 0 }
-    );
+    const task = await Task.findByIdAndDelete(id);
 
     if (!task) {
       return NextResponse.json(
@@ -115,7 +105,7 @@ export async function DELETE(req: NextRequest) {
     );
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json(
       { message: 'Failed to delete task', success: 0 },
       { status: 500 }

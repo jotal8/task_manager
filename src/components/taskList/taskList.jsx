@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import styles from './taskList.module.css';
 import { Task } from '../task/task';
 import { BtnAdd } from '../btnAdd/btnAdd';
-
+import { useSelector } from 'react-redux';
 
 /**
  * generate a list of tasks
  */
 const TaskList = () => {
+  const token = useSelector((state) => state.session.token);
   const [search, setSearch] = useState('');
   const [tasks, setTasks] = useState([]);
 
@@ -17,7 +18,7 @@ const TaskList = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${token}`,
         }
       });
 
@@ -65,7 +66,10 @@ const TaskList = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify({completed: !completed})
+        body: JSON.stringify({
+          field: 'completed',
+          value: !completed
+        })
       });
 
       const data = await response.json();
@@ -91,7 +95,7 @@ const TaskList = () => {
               <input 
                 placeholder='Here you can filter!' 
                 className={styles.filter}
-                value={search} 
+                value={search}
                 onChange={(event) => {setSearch(event.target.value);}}
                 />
               </div>
@@ -100,6 +104,7 @@ const TaskList = () => {
                   filteredTasks.map(task => (
                     <Task
                       key={task._id}
+                      _id={task._id}
                       title={task.title}
                       description={task.description}
                       completed={task.completed}

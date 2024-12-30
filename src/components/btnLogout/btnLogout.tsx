@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import styles from './btnLogout.module.css';
 import { useDispatch } from 'react-redux';
 import { LOGOUT } from './../../services/session';
@@ -15,7 +14,7 @@ const BtnLogout = () => {
 
   return (
     <div className={styles.logoutButton} onClick={logout}>
-        Salir
+        Logout
     </div>
   );
 };
