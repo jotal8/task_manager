@@ -3,6 +3,17 @@ import { authenticateToken } from '../middleware';
 import mongoose from 'mongoose';
 import Task from './../../../../models/Task';
 
+/**
+ * @swagger
+ * /api/tasks:
+ *    get:
+ *       description: get list of tasks, requires valid JWT token
+ *       responses:
+ *         200:
+ *           description: Task list fetched successfully
+ *         401:
+ *           description: Invalid or missing token
+ */
 export async function GET(req: NextRequest) {
   const authError = authenticateToken(req);
   if (authError) return authError;
@@ -31,6 +42,20 @@ export async function GET(req: NextRequest) {
  * /api/tasks:
  *    post:
  *       description: Save new Task, requires valid JWT token
+ *       parameters:
+ *          - in: body
+ *            name: title
+ *            required: true
+ *            description: Task title
+ *            schema:
+ *              type: string
+ * 
+ *          - in: body
+ *            name: description
+ *            required: false
+ *            description: Task description
+ *            schema:
+ *              type: string
  *       responses:
  *         200:
  *           description: Task saving successfully

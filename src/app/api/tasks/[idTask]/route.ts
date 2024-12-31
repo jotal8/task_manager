@@ -5,9 +5,29 @@ import Task from './../../../../../models/Task';
 
 /**
  * @swagger
- * /api/tasks/{idtask}:
+ * /api/tasks/{idTask}:
  *    put:
  *       description: update fields of task, requires valid JWT token
+ *       parameters:
+ *          - in: path
+ *            name: idTask
+ *            required: required
+ *            description: Task identificator
+ *            schema:
+ *              type: string
+ *          - in: body
+ *            name: field
+ *            required: required
+ *            description: name of field to update
+ *            schema:
+ *              type: string
+ * 
+ *          - in: body
+ *            name: value
+ *            required: required
+ *            description: value to update
+ *            schema:
+ *              type: string
  *       responses:
  *         200:
  *           description: Task saving successfully
@@ -63,9 +83,17 @@ export async function PUT(req: NextRequest) {
 
 /**
  * @swagger
- * /api/tasks/{idtask}:
+ * /api/tasks/{idTask}:
  *    delete:
  *       description: delete Task, requires valid JWT token
+ *       parameters:
+ *          - in: path
+ *            name: idTask
+ *            required: true
+ *            description: Task identificator
+ *            schema:
+ *              type: string
+ * 
  *       responses:
  *         200:
  *           description: Task saving successfully

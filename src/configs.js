@@ -1,6 +1,6 @@
 const CONFIG = {
     jsDocs: {
-      apis: ['./src/app/api/login/route.ts'],
+      apis: ['./src/app/api/**/route.ts'],
       swaggerDefinition: {
         info: {
           title: 'Task Manager',
