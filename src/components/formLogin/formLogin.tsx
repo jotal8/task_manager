@@ -19,7 +19,7 @@ const FormLogin = () => {
     const credenciales = { email, password };
 
   try {
-    const response = await fetch('http://localhost:3000/api/login', {
+    const response = await fetch(`/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
