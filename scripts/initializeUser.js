@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import Usuario from './../models/Usuario.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const connectToDatabase = async () => {
 
 try {
-    const db = await mongoose.connect('mongodb://localhost:27017/task_manager');
+    const db = await mongoose.connect(process.env.MONGODB_URI);
+    
     console.log('Conectado a la base de datos:', db.connection.name);
   } catch (error) {
     console.error('Error al conectar a la base de datos', error);
@@ -14,7 +18,7 @@ try {
 };
 
 const createDefaultUser = async () => {
-    await connectToDatabase();
+  await connectToDatabase();
   try {
     const existingUser = await Usuario.findOne({ email: 'admin@coally.com' });
     if (existingUser) {
