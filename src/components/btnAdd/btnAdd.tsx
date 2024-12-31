@@ -1,24 +1,13 @@
-import React, { Dispatch, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../task/task.module.css';
 import { useSelector } from 'react-redux';
-
-interface Task {
-  idtask: number;
-  title: string;
-  description: string;
-  completed: boolean;
-}
-
-interface BtnAddProps {
-  tasks: Task[];
-  setTasks: Dispatch<React.SetStateAction<Task[]>>;
-}
+import { RootState, BtnAddProps } from '../../types';
 
 /**
  * add Task
  */
 const BtnAdd: React.FC<BtnAddProps> = ({ tasks, setTasks }) => {
-  const token = useSelector((state) => state.session.token);
+  const token = useSelector((state: RootState) => state.session.token);
 
   const [isAdding, setIsAdding] = useState(false);
   const [taskTitle, setTaskTitle] = useState('');
