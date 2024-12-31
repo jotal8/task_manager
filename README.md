@@ -18,3 +18,7 @@ node scripts/initializeUser.js
 Credenciales de acceso a la cuenta task manager web
 USUARIO admin@coally.com
 PASSWORD holamundo
+
+
+Para revisar la documentacion de la API con Swagger ingresar a 
+/docs
